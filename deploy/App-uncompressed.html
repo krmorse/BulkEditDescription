@@ -9,8 +9,8 @@
         Rally.onReady(function () {
                 Ext.define('BulkEditDialogOverride', {
   override: 'Rally.ui.dialog.BulkEditDialog',
+
   _fieldIsBulkEditable: function (field) {
-    debugger;
     var fieldDefAttr = field.attributeDefinition;
     return field.editor &&
       !field.readOnly &&
