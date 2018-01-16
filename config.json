@@ -1,0 +1,13 @@
+{
+    "name": "BulkEditDescription",
+    "className": "CustomApp",
+    "server": "https://kmorsea2.testn.f4tech.com",
+    "sdk": "2.1",
+    "javascript": [
+        "BulkEditDialogOverride.js",
+        "App.js"
+    ],
+    "css": [
+        "app.css"
+    ]
+}

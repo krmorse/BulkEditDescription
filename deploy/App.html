@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BulkEditDescription</title>
+
+    <script type="text/javascript" src="/apps/2.1/sdk.js"></script>
+
+    <script type="text/javascript">
+        Rally.onReady(function () {
+                Ext.define("BulkEditDialogOverride",{override:"Rally.ui.dialog.BulkEditDialog",_fieldIsBulkEditable:function(field){var fieldDefAttr=field.attributeDefinition;return field.editor&&!field.readOnly&&!field.hidden&&!field.isMappedFromArtifact&&("OBJECT"===fieldDefAttr.AttributeType&&fieldDefAttr.Constrained||!_.contains(["COLLECTION"],fieldDefAttr.AttributeType))&&this._fieldCanBeEditedForAllRecords(field)}});
+                Ext.define("CustomApp",{extend:"Rally.app.App",componentCls:"app",requires:["BulkEditDialogOverride"],modelNames:["hierarchicalrequirement"],launch:function(){Ext.create("Rally.data.wsapi.TreeStoreBuilder").build({models:this.modelNames,autoLoad:!1,enableHierarchy:!0}).then({success:this._onStoreBuilt,scope:this})},_onStoreBuilt:function(store){var context=this.getContext();this.add({xtype:"rallygridboard",context:context,modelNames:this.modelNames,toggleState:"grid",stateful:!1,plugins:[{ptype:"rallygridboardinlinefiltercontrol",inlineFilterButtonConfig:{stateful:!0,stateId:context.getScopedStateId("filters"),modelNames:this.modelNames,inlineFilterPanelConfig:{quickFilterPanelConfig:{defaultFields:["ArtifactSearch","Owner","ModelType"]}}}}],gridConfig:{store:store,columnCfgs:["Name","ScheduleState","Owner"]},height:this.getHeight()})}});
+
+            Rally.launchApp('CustomApp', {
+                name:"BulkEditDescription",
+	            parentRepos:""
+            });
+
+        });
+    </script>
+
+
+    <style type="text/css">
+        
+    </style>
+</head>
+<body>
+</body>
+</html>
